@@ -31,3 +31,6 @@ multiplyByPow | *---* | `self`
 divide | *---* | `self`
 pow | *---* | `self`
 mod | *---* | `self`
+clone | creates a new `BcNumber` instance using current value as constructor | `self`
+new | alias of `clone` method | `self`
+encode | Encodes current value as Hexadecimal (Base10 to Base16 conversion) | `string`
