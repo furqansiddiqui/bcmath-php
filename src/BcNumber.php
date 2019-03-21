@@ -12,11 +12,11 @@
 
 declare(strict_types=1);
 
-namespace furqansiddiqui\BcMath;
+namespace FurqanSiddiqui\BcMath;
 
 /**
  * Class BcNumber
- * @package furqansiddiqui\BcMath
+ * @package FurqanSiddiqui\BcMath
  */
 class BcNumber
 {
