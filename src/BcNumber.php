@@ -30,6 +30,15 @@ class BcNumber
     private $value;
 
     /**
+     * @param string $hexits
+     * @return BcNumber
+     */
+    public static function Decode(string $hexits): self
+    {
+        return new self(BcMath::Decode($hexits));
+    }
+
+    /**
      * BcNumber constructor.
      * @param null $num
      * @param BcMath|null $bcMath
