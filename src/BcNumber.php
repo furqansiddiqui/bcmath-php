@@ -51,6 +51,26 @@ class BcNumber
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        return [
+            "original" => $this->original,
+            "value" => $this->value,
+            "scale" => $this->getScale()
+        ];
+    }
+
+    /**
      * Sets the scale parameter
      * @param int $scale
      * @return BcNumber
