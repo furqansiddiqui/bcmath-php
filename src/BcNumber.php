@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace FurqanSiddiqui\BcMath;
 
+use FurqanSiddiqui\DataTypes\Base16;
+
 /**
  * Class BcNumber
  * @package FurqanSiddiqui\BcMath
@@ -33,12 +35,12 @@ class BcNumber
     private $triggerUpdateSelf;
 
     /**
-     * @param string $hexits
+     * @param Base16 $hexits
      * @return BcNumber
      */
-    public static function Decode(string $hexits): self
+    public static function Decode(Base16 $hexits): self
     {
-        return new self(BcMath::Decode($hexits));
+        return new self(BcMath::Decode($hexits->hexits(false)));
     }
 
     /**
@@ -392,6 +394,14 @@ class BcNumber
     {
         $this->triggerUpdateSelf = true;
         return $this;
+    }
+
+    /**
+     * @return Base16
+     */
+    public function encode(): Base16
+    {
+        return new Base16(BcBaseConvert::fromBase10($this, BcBaseConvert::CHARSET_BASE16));
     }
 
     /**

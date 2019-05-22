@@ -25,12 +25,14 @@ lessThan | Compares value with a number to check if value is less than argument 
 lessThanOrEquals | Compares value with a number to check if value is less than or equals argument | `bool`
 inRange |  Checks if value is within (or equals) given min and max arguments | `bool`
 add | *---* | `self`
+sub | *---* | `self`
 subtract | *---* | `self`
+mul | *---* | `self`
 multiply | *---* | `self`
 multiplyByPow | *---* | `self`
+div | *---* | `self`
 divide | *---* | `self`
 pow | *---* | `self`
 mod | *---* | `self`
-clone | creates a new `BcNumber` instance using current value as constructor | `self`
-new | alias of `clone` method | `self`
+update | Result of  very next calculation will update value of self instance instead of creating new one  | `self`
 encode | Encodes current value as Hexadecimal (Base10 to Base16 conversion) | `string`
