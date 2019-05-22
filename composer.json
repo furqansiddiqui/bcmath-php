@@ -1,7 +1,6 @@
 {
   "name": "furqansiddiqui/bcmath-php",
   "description": "OOP BcMath wrapper lib",
-  "version": "0.2",
   "type": "library",
   "homepage": "https://github.com/furqansiddiqui/bcmath-php",
   "license": "MIT",
