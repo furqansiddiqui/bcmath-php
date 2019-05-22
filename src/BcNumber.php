@@ -35,6 +35,15 @@ class BcNumber
     private $triggerUpdateSelf;
 
     /**
+     * @param string $hexits
+     * @return BcNumber
+     */
+    public static function fromBase16String(string $hexits): self
+    {
+        return new self(BcMath::Decode($hexits));
+    }
+
+    /**
      * @param Base16 $hexits
      * @return BcNumber
      */
