@@ -29,6 +29,9 @@ class BcNumber
     /** @var string */
     private $value;
 
+    /** @var null|bool */
+    private $triggerUpdateSelf;
+
     /**
      * @param string $hexits
      * @return BcNumber
@@ -254,8 +257,18 @@ class BcNumber
     public function add($num, ?int $scale = null): self
     {
         $num = $this->checkValidNum($num);
-        $this->value = bcadd($this->value, $num, $this->getScale($scale));
-        return $this;
+        return $this->result(bcadd($this->value, $num, $this->getScale($scale)));
+    }
+
+    /**
+     * @param $num
+     * @param int|null $scale
+     * @return BcNumber
+     */
+    public function sub($num, ?int $scale = null): self
+    {
+        $num = $this->checkValidNum($num);
+        return $this->result(bcsub($this->value, $num, $this->getScale($scale)));
     }
 
     /**
@@ -265,9 +278,18 @@ class BcNumber
      */
     public function subtract($num, ?int $scale = null): self
     {
+        return $this->sub($num, $scale);
+    }
+
+    /**
+     * @param $num
+     * @param int|null $scale
+     * @return BcNumber
+     */
+    public function mul($num, ?int $scale = null): self
+    {
         $num = $this->checkValidNum($num);
-        $this->value = bcsub($this->value, $num, $this->getScale($scale));
-        return $this;
+        return $this->result(bcmul($this->value, $num, $this->getScale($scale)));
     }
 
     /**
@@ -277,9 +299,7 @@ class BcNumber
      */
     public function multiply($num, ?int $scale = null): self
     {
-        $num = $this->checkValidNum($num);
-        $this->value = bcmul($this->value, $num, $this->getScale($scale));
-        return $this;
+        return $this->mul($num, $scale);
     }
 
     /**
@@ -296,13 +316,22 @@ class BcNumber
             throw new \InvalidArgumentException('Value for param "exponent" must be a positive integer');
         }
 
-        $this->value = bcmul(
+        return $this->result(bcmul(
             $this->value,
             bcpow(strval($base), strval($exponent), 0),
             $this->getScale($scale)
-        );
+        ));
+    }
 
-        return $this;
+    /**
+     * @param $num
+     * @param int|null $scale
+     * @return BcNumber
+     */
+    public function div($num, ?int $scale = null): self
+    {
+        $num = $this->checkValidNum($num);
+        return $this->result(bcdiv($this->value, $num, $this->getScale($scale)));
     }
 
     /**
@@ -312,9 +341,7 @@ class BcNumber
      */
     public function divide($num, ?int $scale = null): self
     {
-        $num = $this->checkValidNum($num);
-        $this->value = bcdiv($this->value, $num, $this->getScale($scale));
-        return $this;
+        return $this->div($num, $scale);
     }
 
     /**
@@ -325,8 +352,7 @@ class BcNumber
     public function pow($num, ?int $scale = null): self
     {
         $num = $this->checkValidNum($num);
-        $this->value = bcpow($this->value, $num, $this->getScale($scale));
-        return $this;
+        return $this->result(bcpow($this->value, $num, $this->getScale($scale)));
     }
 
     /**
@@ -337,8 +363,7 @@ class BcNumber
     public function mod($divisor, ?int $scale = null): self
     {
         $num = $this->checkValidNum($divisor);
-        $this->value = bcmod($this->value, $num, $this->getScale($scale));
-        return $this;
+        return $this->result(bcmod($this->value, $num, $this->getScale($scale)));
     }
 
     /**
@@ -352,33 +377,36 @@ class BcNumber
     }
 
     /**
-     * This method will create new instance of BcNumber with current value, this should be used before calling any
-     * arithmetic method (add, subtract, multiply, divide, etc...) where you expect resulting value as different Instance
-     * without modifying existing value
      * @return BcNumber
      */
-    public function clone(): self
+    public function copy(): self
     {
         return new self($this->value, $this->bcMath);
     }
 
     /**
-     * Alias of clone() method
+     *
      * @return BcNumber
      */
-    public function new(): self
+    public function update(): self
     {
-        return $this->clone();
+        $this->triggerUpdateSelf = true;
+        return $this;
     }
 
     /**
-     * Encodes current value in hexadecimal (base16)
-     * @param bool $prefix
-     * @return string
+     * @param string $new
+     * @return BcNumber
      */
-    public function encode(bool $prefix = false): string
+    private function result(string $new): self
     {
-        return BcMath::Encode($this->value, $prefix);
+        if ($this->triggerUpdateSelf === true) {
+            $this->value = $new;
+            $this->triggerUpdateSelf = false;
+            return $this;
+        }
+
+        return new self($new, $this->bcMath);
     }
 
     /**
