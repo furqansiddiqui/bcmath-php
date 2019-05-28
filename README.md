@@ -14,6 +14,7 @@ scale | Sets the scale parameter | `self`
 trim | Trims unnecessary digits (0s on the extreme right after decimal point) | `self`
 original | Returns original number (given on constructor) | `string`
 value | Gets value as string | `string`
+int | Gets value as integer, Throws exception is stored value is not an integer (has decimals) OR exceeds PHP_INT_MAX | `int`
 isInteger | Checks if value is integral (does not have decimals) | `bool`
 isZero | Checks if value is zero | `bool`
 isPositive| Checks if value is greater than zero | `bool`
