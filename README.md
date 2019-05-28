@@ -36,4 +36,4 @@ divide | *---* | `self`
 pow | *---* | `self`
 mod | *---* | `self`
 update | Result of  very next calculation will update value of self instance instead of creating new one  | `self`
-encode | Encodes current value as Hexadecimal (Base10 to Base16 conversion) | `string`
+encode | Encodes current value as Hexadecimal (Base10 to Base16 conversion) | `Base16`
