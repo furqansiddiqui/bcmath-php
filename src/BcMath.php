@@ -22,9 +22,9 @@ namespace FurqanSiddiqui\BcMath;
 class BcMath
 {
     /** string Version (Major.Minor.Release-Suffix) */
-    public const VERSION = "0.2.11";
+    public const VERSION = "0.2.21";
     /** int Version (Major * 10000 + Minor * 100 + Release) */
-    public const VERSION_ID = 211;
+    public const VERSION_ID = 221;
 
     /** @var int */
     private $scale;

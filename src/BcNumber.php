@@ -143,6 +143,22 @@ class BcNumber
     }
 
     /**
+     * @return int
+     */
+    public function int(): int
+    {
+        if (!$this->isInteger()) {
+            throw new \DomainException('Stored BcNumber value is not integer');
+        }
+
+        if (bccomp(strval(PHP_INT_MAX), $this->value, 0) === 1) {
+            throw new \DomainException('Stored BcNumber cannot be converted to signed PHP integer, exceeds PHP_INT_MAX');
+        }
+
+        return intval($this->value);
+    }
+
+    /**
      * Checks if value is integral (does not have decimals)
      * @return bool
      */
