@@ -207,6 +207,28 @@ class BcNumber
     }
 
     /**
+     * Compare number with another
+     * @param $comp
+     * @param int|null $scale
+     * @return int
+     */
+    public function compare($comp, ?int $scale = null): int
+    {
+        $comp = $this->checkValidNum($comp);
+        return bccomp($this->value, $comp, $this->getScale($scale));
+    }
+
+    /**
+     * @param $comp
+     * @param int|null $scale
+     * @return int
+     */
+    public function cmp($comp, ?int $scale = null): int
+    {
+        return $this->compare($comp, $scale);
+    }
+
+    /**
      * Compares value with a number to check if value is greater than argument
      * @param $comp
      * @param int|null $scale

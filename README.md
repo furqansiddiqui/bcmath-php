@@ -20,6 +20,7 @@ isZero | Checks if value is zero | `bool`
 isPositive| Checks if value is greater than zero | `bool`
 isNegative| Checks if value is less than zero | `bool`
 equals | Compares value with a number to check if both are equal | `bool`
+compare | Compare value with another number | `int`
 greaterThan | Compares value with a number to check if value is greater than argument | `bool`
 greaterThanOrEquals | Compares value with a number to check if value is greater than or equals argument | `bool`
 lessThan | Compares value with a number to check if value is less than argument | `bool`
